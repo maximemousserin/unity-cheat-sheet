@@ -2,8 +2,11 @@
 
 ## Table of Contents
 
+- [UI](#iu)
+  - [Shortcuts](#shortcuts)
 - [Basics](#basics)
   - [MonoBehaviour](#monobehaviour)
+  - [Serializing variables](#serializing-variables)
   - [Transform](#transform)
   - [Vector3](#vector3)
   - [Quaternion](#quaternion)
@@ -47,6 +50,25 @@
   - [Make object look at the camera](#make-object-look-at-the-camera)
   - [Load next scene](#load-next-scene)
 
+## UI
+
+### Shortcuts
+
+| Action | Key Binding |
+| ------ | ----------- |
+| View Tool | Q |
+| Move Tool | W |
+| Rotate Tool | E |
+| Scale Tool | R |
+| Rect Tool | T |
+| Transform Tool | Y |
+| New Game Object | CTRL + SHIFT + N |
+| New Child Game Object | ALT + SHIFT + N |
+| Toggle Window Size | SHIFT + SPACE |
+| Duplicate | CTRL + D |
+| Play/Pause | CTRL + P |
+| Focus Game Object |	F |
+
 ## Basics
 
 ### [MonoBehaviour](https://docs.unity3d.com/ScriptReference/MonoBehaviour.html)
@@ -55,15 +77,42 @@
 // MonoBehaviour is the base class from which every Unity script derives.
 // Offers some life cycle functions that are easier for you to develop your game.
 
-// Some of the most frequently used ones are as follows;
-Awake()
-Start()
-Update()
-FixedUpdate()
-LateUpdate()
-OnGUI()
-OnEnable()
-OnDisable()
+// All components that derive from the MonoBehaviour class executes a number of event functions in a predetermined order.
+// They're the following:
+
+Awake() // This function is called after a game object has been instantiated.
+OnEnable() // This function is called when a game object is enabled.
+Start() // This function is called before the first frame update.
+Update() // This function is called on every frame.
+LateUpdate() // This function is called on every frame after the Update() function is called.
+OnBecameVisible() // This function is called when the current game object becomes visible via any camera.
+OnBecameInvisible() // This function is called when the current game object no longer becomes visible via any camera.
+OnDrawGizmos() // This function is called for drawing gizmos in the scene window.
+OnGUI() // This function is called multiple times for GUI events.
+OnApplicationPause() // This function is called when the game is paused via the Unity editor.
+OnDisable() // This function is called when the game object is disabled.
+OnDestroy() // This function is called when the game object is destroyed.
+
+// There's a lifecycle function called FixedUpdate, which is called a fixed number of times per second.
+// You can configure the frequency in the Edit ▸ Project Settings ▸ Time ▸ Fixed Timestep.
+
+```
+
+## Serializing variables
+```csharp
+// Unity is capable of performing serialization on your variables.
+// Serialization is the process of transforming your data into a format that can be read and edited from the Unity editor.
+// Variables can be serialized based on either the attribute or access modifiers applied to a variable.
+
+// If a variable is public, it'll be automatically serialized:
+public int age = 10;
+
+// If you don't want public variables to be serialized, you can use the NonSerialized attribute from the System namespace like so:
+[NonSerialized] public int age = 10;
+
+// Private variables not serialized. However, if you want them to be serialized,
+// Unity has an attribute called SerializeField that can be found from the Unity namespace. It can be applied like so:
+[SerializeField] private int age = 10;
 ```
 
 ### [Transform](https://docs.unity3d.com/ScriptReference/Transform.html)
